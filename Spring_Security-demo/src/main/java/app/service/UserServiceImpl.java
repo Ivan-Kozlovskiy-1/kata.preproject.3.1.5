@@ -17,17 +17,19 @@ import java.util.Set;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserDao userDao;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Autowired
-    public UserServiceImpl(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
-
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     @Override
     public void add(User user, Set<Role> roles) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(roles);
         userDao.add(user);
     }
@@ -41,6 +43,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void change (User user, Set<Role> roles) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(roles);
         userDao.change(user, roles);
     }

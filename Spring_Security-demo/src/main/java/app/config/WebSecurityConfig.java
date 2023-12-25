@@ -18,6 +18,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserServiceImpl userServiceImpl) {
         this.successUserHandler = successUserHandler;
         this.userServiceImpl = userServiceImpl;
@@ -42,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userServiceImpl).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.userDetailsService(userServiceImpl).passwordEncoder(passwordEncoder);
     }
 
 }
