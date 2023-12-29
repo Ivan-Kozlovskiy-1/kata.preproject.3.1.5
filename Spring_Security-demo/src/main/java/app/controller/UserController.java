@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
-    @Autowired
-    public UserController() {
-    }
 
     @GetMapping("/user")
     public String pageForUser() {

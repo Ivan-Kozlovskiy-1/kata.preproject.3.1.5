@@ -4,12 +4,14 @@ import app.model.User;
 import app.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @RequestMapping("api/admin")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class AdminRestController {
 
     private final UserService userService;
